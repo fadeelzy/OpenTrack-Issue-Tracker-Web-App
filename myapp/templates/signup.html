@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenTrack - Sign In</title>
+    
+    <!-- Inline Styles -->
+    <style>
+        body {
+          margin: 0;
+          font-family: "Inter", sans-serif;
+          background: #f7f9fb;
+          color: #111827;
+        }
+        .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 1.5rem;
+        }
+        /* Header */
+        .header {
+          background: #fff;
+          border-bottom: 1px solid #e5e7eb;
+          padding: 1rem 0;
+        }
+        .header-content {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .logo {
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+        }
+        .logo img {
+          height: 32px;
+          margin-right: 0.5rem;
+        }
+        .logo-text {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: #2563eb;
+        }
+        /* Buttons */
+        .btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          font-size: 0.875rem;
+          font-weight: 500;
+          text-decoration: none;
+          cursor: pointer;
+          border: none;
+        }
+        .btn-ghost {
+          background: transparent;
+          color: #374151;
+        }
+        .btn-ghost:hover {
+          background: #f3f4f6;
+        }
+        .btn-brand {
+          background: #2563eb;
+          color: white;
+          justify-content: center;
+          width: 100%;
+        }
+        .btn-brand:hover {
+          background: #1d4ed8;
+        }
+        /* Card */
+        .card {
+          background: #fff;
+          border-radius: 0.75rem;
+          padding: 2.5rem;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        h1 {
+          font-size: 1.5rem;
+          font-weight: 700;
+        }
+        .text-muted {
+          color: #6b7280;
+        }
+        .text-primary {
+          color: #2563eb;
+        }
+        .text-primary:hover {
+          text-decoration: underline;
+        }
+        /* Form */
+        .form-group {
+          margin-bottom: 1.25rem;
+        }
+        .label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-size: 0.875rem;
+          font-weight: 500;
+        }
+        .input {
+          width: 100%;
+          padding: 0.625rem 0.75rem;
+          border: 1px solid #d1d5db;
+          border-radius: 0.5rem;
+          font-size: 0.875rem;
+        }
+        .input:focus {
+          border-color: #2563eb;
+          outline: none;
+          box-shadow: 0 0 0 3px rgba(37,99,235,0.2);
+        }
+        .checkbox {
+          width: 1rem;
+          height: 1rem;
+          border: 1px solid #d1d5db;
+          border-radius: 0.25rem;
+        }
+        /* Features Grid */
+        .grid {
+          display: grid;
+        }
+        .grid-cols-3 {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .gap-4 {
+          gap: 1rem;
+        }
+        .icon {
+          width: 24px;
+          height: 24px;
+          stroke: currentColor;
+          stroke-width: 2;
+          fill: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <a href="{% url 'dashboard' %}" class="logo">
+                    <img src="{% static 'opentrack-logo.png' %}" alt="OpenTrack">
+                    <span class="logo-text">OpenTrack</span>
+                </a>
+
+                <!-- Actions -->
+                <div class="header-actions">
+                    <a href="{% url 'dashboard' %}" class="btn btn-ghost btn-sm">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9,22 9,12 15,12 15,22"></polyline></svg>
+                        Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container" style="padding: 2rem 0;">
+        <div style="display: flex; justify-content: center;">
+            <div style="width: 100%; max-width: 28rem;">
+                <!-- Auth Card -->
+                <div class="card">
+                    <!-- Header -->
+                    <div class="text-center" style="margin-bottom: 2rem;">
+                        <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
+                            <img src="{% static 'opentrack-logo.png' %}" alt="OpenTrack" style="width: 48px; height: 48px;">
+                        </div>
+                        <h1 class="text-2xl font-bold mb-2" id="authTitle">Welcome Back</h1>
+                    </div>
+
+                    <!-- Sign Up Form -->
+                    <form id="signupForm" method="post" action="{% url 'signup' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="signupName" class="label">Full Name</label>
+                            <input type="text" id="signupName" name="username" class="input" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail" class="label">Email</label>
+                            <input type="email" id="signupEmail" name="email" class="input" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword" class="label">Password</label>
+                            <input type="password" id="signupPassword" name="password" class="input" placeholder="Create a password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword" class="label">Confirm Password</label>
+                            <input type="password" id="confirmPassword" class="input" placeholder="Confirm your password" required>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 1.5rem;">
+                            <input type="checkbox" id="agreeTerms" class="checkbox" required>
+                            <span class="text-sm text-muted">
+                                I agree to the <a href="#" class="text-primary">Terms of Service</a> and 
+                                <a href="#" class="text-primary">Privacy Policy</a>
+                            </span>
+                        </div>
+                        <button type="submit" class="btn btn-brand">
+                
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87m-3-4a4 4 0 0 1 0 7.75"></path></svg>
+                            Create Account
+                        </button>
+                    </form>
+
+                    <!-- Features -->
+                    <div style="margin-top: 2rem; text-align: center;">
+                        <p class="text-sm text-muted" style="margin-bottom: 1rem;">Trusted by development teams worldwide</p>
+                        <div class="grid grid-cols-3 gap-4 text-xs text-muted">
+                            <div class="flex flex-col items-center gap-1">
+                                <svg class="icon text-primary" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                <span>Secure</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1">
+                                <svg class="icon text-primary" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                                <span>Fast</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1">
+                                <svg class="icon text-primary" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                <span>Collaborative</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+ <script src="{% static 'shared.js' %}"></script>
+</html>

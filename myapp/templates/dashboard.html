@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenTrack - Professional Issue Tracker</title>
+    <meta name="description" content="OpenTrack is a professional issue tracking system for managing bugs, feature requests, and tasks efficiently. Track project issues with priority levels and status updates.">
+    <meta name="author" content="OpenTrack">
+    
+    <meta property="og:title" content="OpenTrack - Professional Issue Tracker">
+    <meta property="og:description" content="Manage bugs, feature requests, and tasks efficiently with OpenTrack's professional issue tracking system.">
+    <meta property="og:type" content="website">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="OpenTrack - Issue Tracker">
+    <meta name="twitter:description" content="Professional issue tracking for development teams">
+   
+    
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <a href="{% url 'dashboard' %}" class="logo">
+                    <img src="{% static 'opentrack-logo.png' %}" alt="OpenTrack">
+                    <span class="logo-text">OpenTrack</span>
+                </a>
+
+                <!-- Search -->
+                <div class="search-container">
+                    <div style="position: relative;">
+                        <div class="search-icon">
+                            <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                        </div>
+                        <input type="text" placeholder="Search issues..." class="search-input" id="headerSearch">
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="header-actions">
+                    <a href="{% url 'add-issue' %}" class="btn btn-primary btn-sm">
+                        <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        New Issue
+                    </a>
+                    <button class="btn btn-ghost btn-sm">
+                        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M12 1v6m0 6v6m11-5h-6m-6 0H1"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container py-8">
+        <!-- Page Header -->
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h1 class="text-3xl font-bold mb-2">Issue Dashboard</h1>
+                <p class="text-muted">Track and manage project issues efficiently</p>
+            </div>
+            <a href="{% url 'add-issue' %}" class="btn btn-brand btn-lg">Create Issue</a>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-4 mb-8" id="statsGrid">
+            <div class="card card-p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-muted">Total Issues</p>
+                        <p class="text-2xl font-bold" id="totalCount">{{ issues.count }}</p>
+                    </div>
+                    <svg class="icon icon-lg text-primary" viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
+                </div>
+            </div>
+            
+            <div class="card card-p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-muted">Open</p>
+                        <p class="text-2xl font-bold text-destructive" id="openCount">{{ open_count }}</p>
+                    </div>
+                    <svg class="icon icon-lg text-destructive" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12,6 12,12 16,14"></polyline></svg>
+                </div>
+            </div>
+            
+            <div class="card card-p-6">
+                <div>
+                    <p class="text-sm font-medium text-muted">In Progress</p>
+                    <p class="text-2xl font-bold text-warning" id="progressCount">{{ progress_count }}</p>
+                </div>
+            </div>
+            
+            <div class="card card-p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-muted">Resolved</p>
+                        <p class="text-2xl font-bold text-success" id="resolvedCount">{{ resolved_count }}</p>
+                    </div>
+                    <svg class="icon icon-lg text-success" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22,4 12,14.01 9,11.01"></polyline></svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="card card-p-6 mb-6">
+            <div class="flex flex-col gap-4">
+                <div class="flex gap-4 items-center">
+                    <div class="flex-1" style="position: relative;">
+                        <div class="search-icon">
+                            <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                        </div>
+                        <input type="text" placeholder="Search issues..." class="search-input" id="searchInput">
+                    </div>
+                    
+                    <div class="flex gap-2">
+                        <select class="select" id="statusFilter" style="width: 8rem;">
+                            <option value="all">All Status</option>
+                            <option value="open">Open</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="resolved">Resolved</option>
+                            <option value="closed">Closed</option>
+                        </select>
+
+                        <select class="select" id="priorityFilter" style="width: 8rem;">
+                            <option value="all">All Priority</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                            <option value="critical">Critical</option>
+                        </select>
+
+                        <select class="select" id="typeFilter" style="width: 8rem;">
+                            <option value="all">All Types</option>
+                            <option value="bug">Bug</option>
+                            <option value="feature">Feature</option>
+                            <option value="enhancement">Enhancement</option>
+                            <option value="task">Task</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="activeFilters" class="flex gap-2 hidden"></div>
+            </div>
+        </div>
+
+        <!-- Issues List -->
+        <div class="space-y-4">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-semibold">
+                    Issues (<span id="issueCount">{{ issues.count }}</span>)
+                </h2>
+            </div>
+            
+            <div id="issuesContainer">
+                {% for issue in issues %}
+                   <div class="card card-p-6">
+                        <a href="{% url 'issue-detail' issue.id %}">
+                            <h3 class="font-semibold">{{ issue.title }}</h3>
+                            <p class="text-muted">{{ issue.description|truncatewords:20 }}</p>
+                            <span class="badge">{{ issue.get_status_display }}</span>
+                            <span class="badge">{{ issue.get_priority_display }}</span>
+                        </a>
+                    </div>
+                {% empty %}
+                    <div class="text-center py-12 card card-p-8">
+                        <h3 class="text-lg font-medium mb-2">No issues found</h3>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+
+    <script src="{% static 'shared.js' %}"></script>
+    <script src="{% static 'dashboard.js' %}"></script>
+</body>
+</html>
