@@ -4,7 +4,7 @@ A full-stack issue tracking system built with Django, designed for teams to log 
 
 # OpenTrack - Issue Tracker 🚀
 
-![CI](https://github.com/fadeelzy/OpenTrack-Issue-Tracker-Web-App/actions/workflows/django-ci.yml/badge.svg)
+![CI](https://github.com/fadeelzy/OpenTrack-Issue-Tracker-Web-App/actions/workflows/django-ci.yml/
 
 🔥 Features
 
