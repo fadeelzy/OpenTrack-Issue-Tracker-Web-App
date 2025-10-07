@@ -2,6 +2,9 @@
 
 A full-stack issue tracking system built with Django, designed for teams to log bugs, request features, and manage issue lifecycles with reliability in mind.
 
+# OpenTrack - Issue Tracker 🚀
+
+![CI](https://github.com/fadeelzy/OpenTrack-Issue-Tracker-Web-App/actions/workflows/django-ci.yml/
 
 🔥 Features
 
@@ -104,6 +107,16 @@ This project is built with site reliability engineering practices in mind:
 - REST API for integration with other tools
 
 - CI/CD pipeline with GitHub Actions
+
+## 🚦 CI/CD Workflow
+
+This project uses **GitHub Actions** for continuous integration (CI):
+
+- ✅ Runs tests automatically on every push & pull request  
+- ✅ Ensures the project builds correctly with Python & Django  
+- ✅ Prevents broken code from being merged  
+The workflow file lives here:  
+`.github/workflows/django-ci.yml`
 
 🤝 Contributing
 
