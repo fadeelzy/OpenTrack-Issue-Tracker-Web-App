@@ -125,7 +125,7 @@ Feel free to fork and submit pull requests.
 
 👨‍💻 Author
 
-Your Name – Backend Engineer | Site Reliability Enthusiast
+Fadilah Abdulkadir – Backend Engineer | Site Reliability Engineer | Cloud Solutions Architect 
 
 🌐 Portfolio: SRE-fadilah.com
 
