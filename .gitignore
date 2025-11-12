@@ -14,8 +14,7 @@ env/
 *.pyc
 *.sqlite3
 db.sqlite3
-media/
-staticfiles/
+
 
 # If you collect static files, exclude them
 /static/
