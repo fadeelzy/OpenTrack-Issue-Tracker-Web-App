@@ -4,7 +4,6 @@ A full-stack issue tracking system built with Django, designed for teams to log 
 
 # OpenTrack - Issue Tracker 🚀
 
-![CI](https://github.com/fadeelzy/OpenTrack-Issue-Tracker-Web-App/actions/workflows/django-ci.yml/
 
 🔥 Features
 
@@ -125,7 +124,7 @@ Feel free to fork and submit pull requests.
 
 👨‍💻 Author
 
-Your Name – Backend Engineer | Site Reliability Enthusiast
+Fadilah Abdulkadir – Backend Engineer | Site Reliability Engineer | Cloud Solutions Architect 
 
 🌐 Portfolio: SRE-fadilah.com
 
