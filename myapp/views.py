@@ -64,7 +64,8 @@ def auth_view(request):
 
 @login_required(login_url='auth')
 def dashboard(request):
-    issues = Issue.objects.all().order_by("-created_at")
+    # Only show issues reported by this user
+    issues = Issue.objects.filter(reporter=request.user).order_by("-created_at")
 
     # Filters
     status = request.GET.get("status")
@@ -73,10 +74,8 @@ def dashboard(request):
 
     if status and status != "all":
         issues = issues.filter(status=status)
-
     if priority and priority != "all":
         issues = issues.filter(priority=priority)
-
     if q:
         issues = issues.filter(title__icontains=q)
 

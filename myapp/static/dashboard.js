@@ -2,7 +2,6 @@
 
 class Dashboard {
   constructor() {
-    this.issues = mockIssues;
     this.filteredIssues = [...this.issues];
     this.searchQuery = '';
     this.statusFilter = 'all';
